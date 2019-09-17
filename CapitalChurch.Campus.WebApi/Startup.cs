@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using CapitalChurch.Campus.WebApi.Infrastructure;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +7,10 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace CapitalChurch.Campus.WebApi
 {
@@ -39,6 +43,10 @@ namespace CapitalChurch.Campus.WebApi
                 opts.GroupNameFormat = "'v'VVV";
                 opts.SubstituteApiVersionInUrl = true;
             });
+            
+            
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            
             services.AddSwaggerGen();
         }
         
@@ -52,7 +60,7 @@ namespace CapitalChurch.Campus.WebApi
             app.UseSwaggerUI(options =>
             {
                 foreach (var description in provider.ApiVersionDescriptions)
-                    options.SwaggerEndpoint($"../swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
             });
 
             app.UseMvc();
