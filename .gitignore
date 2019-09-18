@@ -354,3 +354,7 @@ MigrationBackup/
 # file: ~/.gitignore_global
 .DS_Store
 .idea
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
