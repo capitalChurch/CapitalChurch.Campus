@@ -30,7 +30,7 @@ namespace CapitalChurch.Campus.WebApi.Controllers.V1
                 {
                     Id = 3,
                     Name = "EPNB",
-                    Minister = $"Gustavo Alves Da Fonseca"
+                    Minister = $"Gustavo Alves"
                 }
             };
     }
