@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using CapitalChurch.Campus.Domain.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace CapitalChurch.Campus.WebApi.Controllers.V1
 {
@@ -9,6 +11,12 @@ namespace CapitalChurch.Campus.WebApi.Controllers.V1
     [Route("v{version:apiVersion}/[controller]")]
     public class CampusController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+
+        public CampusController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
         [HttpGet]
         public IEnumerable<Campi> ListAllCampis() =>
             new List<Campi>
@@ -29,7 +37,7 @@ namespace CapitalChurch.Campus.WebApi.Controllers.V1
                 {
                     Id = 3,
                     Name = "EPNB",
-                    Minister = "Gustavo Alves"
+                    Minister = $"Gustavo *{_configuration["kevyn"]}* Alves {Environment.GetEnvironmentVariable("kevyn")}"
                 }
             };
     }
