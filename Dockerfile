@@ -2,8 +2,6 @@ FROM microsoft/dotnet:2.2-aspnetcore-runtime as base
 WORKDIR /app
 expose 80
 
-ENV kevyn=abacaxi
-
 FROM microsoft/dotnet:2.2-sdk AS build
 WORKDIR /src
 COPY ["CapitalChurch.Campus.Domain/CapitalChurch.Campus.Domain.csproj", "CapitalChurch.Campus.Domain/"]
