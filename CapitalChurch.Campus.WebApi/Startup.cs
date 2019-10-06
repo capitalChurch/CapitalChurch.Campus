@@ -59,7 +59,7 @@ namespace CapitalChurch.Campus.WebApi
                 app.UseDeveloperExceptionPage();
 
             app.UseCors(corsPolicy);
-            app.UseSwagger(opts =>
+            app.UsePathBase(urlBase).UseSwagger(opts =>
                 opts.PreSerializeFilters.Add((doc, req) =>
                     doc.Paths = doc.Paths
                         .ToDictionary(x => $"{urlBase}{x.Key}", x =>  x.Value)));
@@ -67,7 +67,7 @@ namespace CapitalChurch.Campus.WebApi
             app.UseSwaggerUI(options =>
             {
                 foreach (var description in provider.ApiVersionDescriptions)
-                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                    options.SwaggerEndpoint($"{urlBase}/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
             });
 
             app.UsePathBase(urlBase).UseMvc();
