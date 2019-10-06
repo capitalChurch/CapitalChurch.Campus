@@ -54,12 +54,12 @@ namespace CapitalChurch.Campus.WebApi
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UsePathBase(urlBase).UseCors(corsPolicy);
+            app.UseCors(corsPolicy);
             app.UsePathBase(urlBase).UseSwagger();
-            app.UsePathBase(urlBase).UseSwaggerUI(options =>
+            app.UseSwaggerUI(options =>
             {
                 foreach (var description in provider.ApiVersionDescriptions)
-                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                    options.SwaggerEndpoint($"${urlBase}/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
             });
 
             app.UsePathBase(urlBase).UseMvc();
