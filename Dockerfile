@@ -16,5 +16,5 @@ RUN dotnet publish "./CapitalChurch.Campus.WebApi/CapitalChurch.Campus.WebApi.cs
 
 FROM base AS final
 WORKDIR /app
-COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "./CapitalChurch.Campus.WebApi.dll"]
+COPY --from=publish /app /app/published
+ENTRYPOINT ["dotnet", "./published/CapitalChurch.Campus.WebApi.dll"]

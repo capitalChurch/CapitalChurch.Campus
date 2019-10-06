@@ -3,8 +3,9 @@ version: '3'
 services:
   campusapi:
     image: campus
+    container_name: campusapi
     build:
       context: ./
       dockerfile: Dockerfile
     ports:
-      - "8082:80"
+      - "8083:80"
