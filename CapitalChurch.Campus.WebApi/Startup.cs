@@ -16,7 +16,7 @@ namespace CapitalChurch.Campus.WebApi
     {
         private readonly IConfiguration _configuration;
         private const string corsPolicy = "AllowAnythingForGet";
-        private const string urlBase = "campus";
+        private const string urlBase = "/campus";
 
         public Startup(IConfiguration configuration)
         {
