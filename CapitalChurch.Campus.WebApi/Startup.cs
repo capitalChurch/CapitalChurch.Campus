@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using CapitalChurch.Campus.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace CapitalChurch.Campus.WebApi
@@ -56,16 +59,20 @@ namespace CapitalChurch.Campus.WebApi
                 app.UseDeveloperExceptionPage();
 
             app.UseCors(corsPolicy);
-            app.UsePathBase(urlBase).UseSwagger();
+            app.UseSwagger(opts =>
+                opts.PreSerializeFilters.Add((doc, req) =>
+                    doc.Paths = doc.Paths
+                        .ToDictionary(x => $"{urlBase}{x.Key}", x =>  x.Value)));
+            
             app.UseSwaggerUI(options =>
             {
                 foreach (var description in provider.ApiVersionDescriptions)
-                    options.SwaggerEndpoint($"{urlBase}/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                    options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
             });
 
             app.UsePathBase(urlBase).UseMvc();
 
-            app.Run(context =>
+            app.UsePathBase(urlBase).Run(context =>
             {
                 context.Response.Redirect($"{urlBase}/swagger");
                 return Task.CompletedTask;
