@@ -71,12 +71,6 @@ namespace CapitalChurch.Campus.WebApi
             });
 
             app.UsePathBase(urlBase).UseMvc();
-
-            app.UsePathBase(urlBase).Run(context =>
-            {
-                context.Response.Redirect($"{urlBase}/swagger");
-                return Task.CompletedTask;
-            });
         }
     }
 }
