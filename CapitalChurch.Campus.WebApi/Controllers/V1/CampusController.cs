@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using CapitalChurch.Campus.Domain.Model;
 using Microsoft.AspNetCore.Mvc;

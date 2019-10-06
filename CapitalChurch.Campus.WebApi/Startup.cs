@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using CapitalChurch.Campus.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace CapitalChurch.Campus.WebApi
@@ -61,8 +58,7 @@ namespace CapitalChurch.Campus.WebApi
             app.UseCors(corsPolicy);
             app.UsePathBase(urlBase).UseSwagger(opts =>
                 opts.PreSerializeFilters.Add((doc, req) =>
-                    doc.Paths = doc.Paths
-                        .ToDictionary(x => $"{urlBase}{x.Key}", x =>  x.Value)));
+                    doc.BasePath = urlBase));
             
             app.UseSwaggerUI(options =>
             {
