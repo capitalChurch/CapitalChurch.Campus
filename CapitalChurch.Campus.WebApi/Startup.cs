@@ -1,4 +1,5 @@
-﻿using CapitalChurch.Campus.WebApi.Infrastructure;
+﻿using System.Threading.Tasks;
+using CapitalChurch.Campus.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -63,6 +64,12 @@ namespace CapitalChurch.Campus.WebApi
             });
 
             app.UsePathBase(urlBase).UseMvc();
+
+            app.Run(context =>
+            {
+                context.Response.Redirect($"{urlBase}/swagger");
+                return Task.CompletedTask;
+            });
         }
     }
 }
