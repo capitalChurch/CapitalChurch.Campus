@@ -57,8 +57,7 @@ namespace CapitalChurch.Campus.WebApi
 
             app.UseCors(corsPolicy);
             app.UsePathBase(urlBase).UseSwagger(opts =>
-                opts.PreSerializeFilters.Add((doc, req) =>
-                    doc.BasePath = urlBase));
+                opts.PreSerializeFilters.Add((doc, _) => doc.BasePath = urlBase));
             
             app.UseSwaggerUI(options =>
             {
