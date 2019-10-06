@@ -16,6 +16,7 @@ namespace CapitalChurch.Campus.WebApi
     {
         private readonly IConfiguration _configuration;
         private const string corsPolicy = "AllowAnythingForGet";
+        private const string urlBase = "endereco";
 
         public Startup(IConfiguration configuration)
         {
@@ -53,15 +54,15 @@ namespace CapitalChurch.Campus.WebApi
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            app.UseCors(corsPolicy);
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
+            app.UsePathBase(urlBase).UseCors(corsPolicy);
+            app.UsePathBase(urlBase).UseSwagger();
+            app.UsePathBase(urlBase).UseSwaggerUI(options =>
             {
                 foreach (var description in provider.ApiVersionDescriptions)
                     options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
             });
 
-            app.UseMvc();
+            app.UsePathBase(urlBase).UseMvc();
         }
     }
 }
